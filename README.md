@@ -1,4 +1,4 @@
-# Typescript with Babel and Webpack Starter kit for web
+# Phaser2-with-Typescript-and-Babel
 
 ## todo
 
