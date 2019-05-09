@@ -8,8 +8,8 @@ class IGame {
 
     constructor() {
         IGame.gameConfig = {
-            width: 480,
-            height: 320,
+            width: GLOBALWIDTH,
+            height: GLOBALHEIGHT,
         };
         this.game = new Phaser.Game(IGame.gameConfig.width, IGame.gameConfig.height, Phaser.CANVAS, 'gameContainer', {
             preload: this.preload,

@@ -15,15 +15,18 @@ module.exports = {
         chunkFilename: '[name].js',
     },
     module: {
-        rules: [{
+        rules: [
+            {
                 test: /\.(png|jpg|gif)$/, //匹配所有格式的图片资源
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: 'assets/images/[name].[ext]',
-                        publicPath: '../',
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'assets/images/[name].[ext]',
+                            publicPath: '../',
+                        },
                     },
-                }, ],
+                ],
             },
             {
                 test: /\.scss$/,
@@ -48,13 +51,6 @@ module.exports = {
             template: './index.html', // 配置文件模板
         }),
         new ExtractTextPlugin('css/[name].css'),
-        // new CopyPlugin([{
-        //     from: './lib/*.js',
-        //     to: './',
-        // }, {
-        //     from: './assets/**',
-        //     to: './'
-        // }]),
     ],
     resolve: {
         modules: ['node_modules', path.resolve(__dirname, 'src')],

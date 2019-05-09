@@ -11,6 +11,7 @@
 4. [] add the font handler
 
 5. [] dts gen tool
+6. [] 根据安卓\IOS 链接 打包成两份,文件名按指定格式
 
 ## Quick Start
 
