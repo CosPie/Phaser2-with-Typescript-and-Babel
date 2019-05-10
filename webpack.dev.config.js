@@ -5,7 +5,16 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const phaserModulePath = path.join(__dirname, '/node_modules/phaser-ce/');
 const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
-module.exports = (env, argv) => {
+module.exports = ($env, argv) => {
+    const env = process.env;
+    console.log(env);
+    const buildEnvConfig = {
+        // html metaTag data
+        ADSIZE:
+            env.npm_package_config_direction === 'vertical'
+                ? JSON.stringify('width=320,height=480')
+                : JSON.stringify('width=480,height=320'),
+    };
     return {
         mode: 'development',
         entry: path.resolve(__dirname, './src/ts/index.ts'),
@@ -48,13 +57,14 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new webpack.DefinePlugin({
-                GLOBALWIDTH: env.direction === 'vertical' ? 320 : 480,
-                GLOBALHEIGHT: env.direction === 'vertical' ? 480 : 320,
+                GLOBALWIDTH: env.npm_package_config_direction === 'vertical' ? 320 : 480,
+                GLOBALHEIGHT: env.npm_package_config_direction === 'vertical' ? 480 : 320,
             }),
             new HtmlWebpackPlugin({
                 filename: 'index.html', // 配置输出文件名和路径
                 template: './index.ejs', // 配置文件模板
                 chunks: ['index'],
+                ADSIZE: buildEnvConfig.ADSIZE,
             }),
             new ExtractTextPlugin('css/[name].css'),
         ],

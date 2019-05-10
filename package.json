@@ -6,7 +6,7 @@
     "config": {
         "gameName": "",
         "developer": "",
-        "direction": "",
+        "direction": "vertical",
         "devURL": "",
         "androidURL": "",
         "iosURL": ""
@@ -16,8 +16,8 @@
         "check-types:watch": "tsc --watch",
         "check-h5validator": "ts-node GoogleValidator.ts",
         "check-h5validator:proxy": "SET http_proxy=http://127.0.0.1:1080 && SET https_proxy=http://127.0.0.1:1080 && ts-node GoogleValidator.ts",
-        "dev": "webpack-dev-server --config webpack.dev.config.js --env.direction=$direction --env.androidURL=$androidURL --env.iosRL=$iosURL",
-        "build": "webpack --mode production --config webpack.build.config.js --env.direction=$direction --env.androidURL=$androidURL --env.iosRL=$iosURL && npm run build:generate && npm run build:zip",
+        "dev": "webpack-dev-server --config webpack.dev.config.js",
+        "build": "webpack --mode production --config webpack.build.config.js && npm run build:generate && npm run build:zip",
         "build:generate": "ts-node build.ts",
         "build:zip": "ts-node zip.ts",
         "lint": "eslint src/ --ext .js,.ts "

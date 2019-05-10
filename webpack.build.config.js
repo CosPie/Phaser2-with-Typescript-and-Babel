@@ -5,11 +5,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
-module.exports = (env, argv) => {
+module.exports = ($env, argv) => {
+    const env = process.env;
     const buildEnvConfig = {
         // html metaTag data
         ADSIZE:
-            env.direction === 'vertical'
+            env.npm_package_config_direction === 'vertical'
                 ? JSON.stringify('width=320,height=480')
                 : JSON.stringify('width=480,height=320'),
     };
@@ -62,8 +63,8 @@ module.exports = (env, argv) => {
             new CleanWebpackPlugin(),
             // avoid import jquery lib in any *.ts
             new webpack.DefinePlugin({
-                GLOBALWIDTH: env.direction === 'vertical' ? 320 : 480,
-                GLOBALHEIGHT: env.direction === 'vertical' ? 480 : 320,
+                GLOBALWIDTH: env.npm_package_config_direction === 'vertical' ? 320 : 480,
+                GLOBALHEIGHT: env.npm_package_config_direction === 'vertical' ? 480 : 320,
             }),
             new HtmlWebpackPlugin({
                 filename: 'index-ios.html', // 配置输出文件名和路径
