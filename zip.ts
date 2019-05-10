@@ -19,8 +19,11 @@ const archiveDir = (src: string, outputFile: string) => {
     const archive = archiver('zip');
 
     output.on('close', function() {
-        console.log(archive.pointer() + ' total bytes');
-        console.log('archiver has been finalized and the output file descriptor has closed.');
+        let size = Math.ceil(Number(archive.pointer() / 1024));
+        console.log(`${outputFile}:${size}kb`);
+        if (size >= 1024) {
+            console.warn(`${outputFile} 文件大小超出1Mb,可能无法上传到GoogleValidator.`);
+        }
     });
 
     archive.on('error', function(err: any) {

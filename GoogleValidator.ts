@@ -29,9 +29,14 @@ interface Response {
 const GoogleH5ValidatorURL = 'https://h5validator.appspot.com/dcm';
 const DCMUploadAPI = 'https://h5validator.appspot.com/api/policy/dcm';
 
-const getFormData = (uploadFile: any) => {
+const getFormData = (uploadFileName: any) => {
+    let uploadFileStream = fs.createReadStream(path.resolve(__dirname, `./build/${uploadFileName}`));
+    let uploadFileSize = fs.statSync(path.resolve(__dirname, `./build/${uploadFileName}`)).size;
+    if (uploadFileSize / 1024 >= 1024) {
+        console.warn(`${uploadFileName}文件超出1Mb,可能无法上传.`);
+    }
     return {
-        creative_bundle: fs.createReadStream(path.resolve(__dirname, `./build/${uploadFile}`)),
+        creative_bundle: uploadFileStream,
         allow_large_file_size: 'false', // default false
     };
 };
