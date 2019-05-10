@@ -37,4 +37,5 @@ class IGame {
 }
 window.onload = () => {
     const game = new IGame();
+    console.log('GLOBALDOWNLOADURL');
 };

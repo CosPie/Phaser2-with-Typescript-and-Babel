@@ -13,6 +13,8 @@ const buildConfig = {
     gameName: process.env.npm_package_config_gameName,
     direction: process.env.npm_package_config_direction === 'vertical' ? '竖版' : '横版',
     developer: process.env.npm_package_config_developer,
+    androidURL: process.env.npm_package_config_androidURL,
+    iosURL: process.env.npm_package_config_iosURL,
 };
 const commonBuildPath = `${buildConfig.gameName}_${buildConfig.direction}`;
 
@@ -34,9 +36,37 @@ const build = () => {
     fs.copy(path.resolve(baseDir, './css/android/index.css'), path.resolve(buildIOSDir, './css/index.css'));
 
     // copy android js
-    fs.copy(path.resolve(baseDir, './js/android/index.js'), path.resolve(buildAndroidDir, './js/index.js'));
+    // fs.copySync(path.resolve(baseDir, './js/android/index.js'), path.resolve(buildAndroidDir, './js/index.js'));
+    let regExp_GLOBALDOWNLOADURL = new RegExp(/GLOBALDOWNLOADURL/);
+    fs.readFile(path.resolve(baseDir, './js/android/index.js'), 'utf8', async (err, data: any) => {
+        if (err) {
+            return console.log(err);
+        }
+        //
+        const result = data.replace(regExp_GLOBALDOWNLOADURL, buildConfig.androidURL);
+        await fs.ensureDir(path.resolve(buildAndroidDir, './js/'));
+        fs.writeFile(path.resolve(buildAndroidDir, './js/index.js'), result, 'utf8', function(err) {
+            if (err) {
+                throw new Error(err.message);
+            }
+        });
+    });
+
     // copy ios js
-    fs.copy(path.resolve(baseDir, './js/ios/index.js'), path.resolve(buildIOSDir, './js/index.js'));
+    // fs.copySync(path.resolve(baseDir, './js/ios/index.js'), path.resolve(buildIOSDir, './js/index.js'));
+    fs.readFile(path.resolve(baseDir, './js/ios/index.js'), 'utf8', async (err, data: any) => {
+        if (err) {
+            return console.log(err);
+        }
+        //
+        const result = data.replace(regExp_GLOBALDOWNLOADURL, buildConfig.iosURL);
+        await fs.ensureDir(path.resolve(buildIOSDir, './js/'));
+        fs.writeFile(path.resolve(buildIOSDir, './js/index.js'), result, 'utf8', function(err) {
+            if (err) {
+                throw new Error(err.message);
+            }
+        });
+    });
 
     // copy lib folder
     fs.copy(path.resolve(baseDir, './lib'), path.resolve(buildAndroidDir, './lib'));

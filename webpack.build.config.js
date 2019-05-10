@@ -7,12 +7,11 @@ const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 module.exports = (env, argv) => {
     const buildEnvConfig = {
+        // html metaTag data
         ADSIZE:
             env.direction === 'vertical'
                 ? JSON.stringify('width=320,height=480')
                 : JSON.stringify('width=480,height=320'),
-        ANDROIDURL: env.androidURL,
-        IOSURL: env.iosURL,
     };
 
     return {

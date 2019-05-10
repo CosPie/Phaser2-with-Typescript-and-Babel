@@ -7,15 +7,16 @@
         "gameName": "游龙传说",
         "developer": "黄竟格",
         "direction": "horizental",
-        "androidURL": "http://www.baidu.com",
-        "iosURL": "http://www.google.com"
+        "devURL": "http://www.baidu.com",
+        "androidURL": "http://www.android.com",
+        "iosURL": "http://www.ios.com"
     },
     "scripts": {
         "check-types": "tsc",
         "check-types:watch": "tsc --watch",
         "check-h5validator": "ts-node GoogleValidator.ts",
         "check-h5validator:proxy": "SET http_proxy=http://127.0.0.1:1080 && SET https_proxy=http://127.0.0.1:1080 && ts-node GoogleValidator.ts",
-        "dev": "webpack-dev-server --config webpack.dev.config.js",
+        "dev": "webpack-dev-server --config webpack.dev.config.js --env.direction=$direction --env.androidURL=$androidURL --env.iosRL=$iosURL",
         "build": "webpack --mode production --config webpack.build.config.js --env.direction=$direction --env.androidURL=$androidURL --env.iosRL=$iosURL && npm run build:generate && npm run build:zip",
         "build:generate": "ts-node build.ts",
         "build:zip": "ts-node zip.ts",
