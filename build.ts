@@ -1,3 +1,10 @@
+/**
+ * @before 需确保webpack已经编译出/dist目录文件
+ * 根据package.json中的config 属性,
+ * 进行生成包含安卓/IOS的文件夹以及Zip压缩包
+ *
+ */
+
 import fs from 'fs-extra';
 import path from 'path';
 const archiver = require('archiver');
