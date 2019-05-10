@@ -4,12 +4,12 @@
     "description": "",
     "main": "webpack.config.js",
     "config": {
-        "gameName": "游龙传说",
-        "developer": "黄竟格",
-        "direction": "horizental",
-        "devURL": "http://www.baidu.com",
-        "androidURL": "http://www.android.com",
-        "iosURL": "http://www.ios.com"
+        "gameName": "",
+        "developer": "",
+        "direction": "",
+        "devURL": "",
+        "androidURL": "",
+        "iosURL": ""
     },
     "scripts": {
         "check-types": "tsc",
