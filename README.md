@@ -3,21 +3,25 @@
 ## 功能
 1. Phaser2+Typescript+Babel /Scss+Postcss/Eslint+Prettier/
 2. 快速生成两套区分安卓/IOS游戏下载链接的项目文件夹,并生成`*.zip`打包文件
-3. 自动上传到[GoogleH5Validator](https://h5validator.appspot.com/dcm/asset),并以默认浏览器打开结果页
+3. 可自动上传到[GoogleH5Validator](https://h5validator.appspot.com/dcm/asset),并以默认浏览器显示结果页
 
 ## Todo
 
-1. [] image compress handler
+1. [x] 根据安卓\IOS 链接 打包成两份,文件名按指定格式
 
-2. [] media (such as _.mp3 , _.wav file) file-loader
+2. [ ] image compress handler
 
-3. [] Compress Css (postcss, purgecss for remove unused css)
+3. [ ] media (such as _.mp3 , _.wav file) file-loader
 
-4. [] add the font handler
+4. [ ] Compress Css (postcss, purgecss for remove unused css)
 
-5. [] dts gen tool
+5. [ ] add the font handler
 
-6. [] 根据安卓\IOS 链接 打包成两份,文件名按指定格式
+6. [ ] dts gen tool
+   
+7. [ ] 使用WebpackReplaceLoader插件取代相关正则替换方式
+
+
 
 ## Quick Start
 
@@ -41,6 +45,41 @@ yarn install
 ```shell
 npm run dev
 ```
+
+## 配置
+
+打开 `package.json`文件,在 `config`属性字段中进行配置,配置示例:
+```json
+    "config": {
+        "gameName": "游龙传说",
+        "developer": "黄竟格",
+        "direction": "horizental",
+        "devURL": "http://www.baidu.com",
+        "androidURL": "http://www.android.com",
+        "iosURL": "http://www.ios.com"
+    },
+```
+
+## 命令使用
+
+常用:
+
+`npm run dev`: 开发环境
+
+`npm run build`: 将会得到两套生产环境项目文件夹和Zip压缩包,等同于:执行完webpack任务后+`npm run build:generate && npm run build:zip`;
+
+`npm run check-h5validator:proxy` : (代理模式) 选择文件上传到GoogleH5Validator,并以默认浏览器打开
+
+更多:
+
+`npm run build:generate`: 根据dist目录重新生成两套生产环境项目文件夹
+
+`npm run build:zip`: 将build目录下的项目文件夹重新打包为Zip压缩包
+
+`npm run check-types` : 调用 Typescript 对代码进行类型检查
+
+`npm run check-h5validator` : 选择文件上传到GoogleH5Validator,并以默认浏览器打开
+
 
 ## DTO.d.ts
 
