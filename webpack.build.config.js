@@ -6,7 +6,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 module.exports = (env, argv) => {
-    console.log(env.isVertical);
     const buildEnvConfig = {
         ADSIZE:
             env.direction === 'vertical'
@@ -18,8 +17,11 @@ module.exports = (env, argv) => {
 
     return {
         mode: 'production',
-        entry: path.resolve(__dirname, './src/ts/index.ts'),
-        watch: true,
+        entry: {
+            'android/index': path.resolve(__dirname, './src/ts/index.ts'),
+            'ios/index': path.resolve(__dirname, './src/ts/index.ts'),
+        },
+        watch: false,
         output: {
             path: path.resolve(__dirname, 'dist'),
             filename: 'js/[name].js',
@@ -65,19 +67,28 @@ module.exports = (env, argv) => {
                 GLOBALHEIGHT: env.direction === 'vertical' ? 480 : 320,
             }),
             new HtmlWebpackPlugin({
-                filename: 'index.html', // 配置输出文件名和路径
+                filename: 'index-ios.html', // 配置输出文件名和路径
                 template: './index.ejs', // 配置文件模板
+                chunks: [''],
+                ADSIZE: buildEnvConfig.ADSIZE,
+            }),
+            new HtmlWebpackPlugin({
+                filename: 'index-android.html', // 配置输出文件名和路径
+                template: './index.ejs', // 配置文件模板
+                chunks: [''],
                 ADSIZE: buildEnvConfig.ADSIZE,
             }),
             new ExtractTextPlugin('css/[name].css'),
 
-            //  copy the lib file
             // ! BUG: change file will clear the copyFile in build-watch mode .
+            // please run again build task if you change src/anyfile.
             new CopyPlugin([
+                //  copy the lib file
                 {
                     from: './lib/*.js',
                     to: './',
                 },
+                // copy the assets folder
                 {
                     from: './assets/**',
                     to: './',
