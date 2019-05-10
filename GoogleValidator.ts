@@ -15,7 +15,7 @@ import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import child_process from 'child_process';
-
+const inquirer = require('inquirer');
 interface DCMUploadRes {
     status: boolean;
     response: Response;
@@ -42,19 +42,29 @@ const uploadToGoogleValidator = async () => {
     }
 
     let buildDirArr = await fs.readdir(path.resolve(__dirname, './build'));
-    let zipFile = buildDirArr
-        .filter(dirName => {
-            return dirName.indexOf('.zip') !== -1;
-        })
-        .pop();
+    let zipFiles = buildDirArr.filter(dirName => {
+        return dirName.indexOf('.zip') !== -1;
+    });
 
-    console.info(`try to Upload File:${zipFile}`);
-
-    let uploadFormData = getFormData(zipFile);
+    const answers = await inquirer.prompt([
+        {
+            type: 'list',
+            name: 'selectUploadFile',
+            message: 'Select a *.zip file to upload: ',
+            choices: [...zipFiles],
+        },
+    ]);
+    let uploadFormData = getFormData(answers.selectUploadFile);
 
     request.post({ url: DCMUploadAPI, formData: uploadFormData }, (err, res, body) => {
-        // console.log(body);
-        // example res:
+        if (err) {
+            throw new Error(err);
+        }
+        if (!body) {
+            throw new Error('body is undefined');
+        }
+
+        // example body data:
         // )]}',
         // {"status": true, "response": {"policy": "dcm", "result": 6704950093807616}}
 

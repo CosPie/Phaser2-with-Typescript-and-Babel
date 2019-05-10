@@ -3,9 +3,9 @@
 ## 功能
 1. Phaser2+Typescript+Babel /Scss+Postcss/Eslint+Prettier/
 2. 快速生成两套区分安卓/IOS游戏下载链接的项目文件夹,并生成`*.zip`打包文件
-3. 自动上传到[GoogleH5Validator](https://h5validator.appspot.com/dcm/asset),
+3. 自动上传到[GoogleH5Validator](https://h5validator.appspot.com/dcm/asset),并以默认浏览器打开结果页
 
-## todo
+## Todo
 
 1. [] image compress handler
 
@@ -16,6 +16,7 @@
 4. [] add the font handler
 
 5. [] dts gen tool
+
 6. [] 根据安卓\IOS 链接 打包成两份,文件名按指定格式
 
 ## Quick Start
