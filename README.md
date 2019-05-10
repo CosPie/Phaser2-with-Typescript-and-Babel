@@ -1,5 +1,10 @@
 # Phaser2-with-Typescript-and-Babel
 
+## 功能
+1. Phaser2+Typescript+Babel /Scss+Postcss/Eslint+Prettier/
+2. 快速生成两套区分安卓/IOS游戏下载链接的项目文件夹,并生成`*.zip`打包文件
+3. 自动上传到[GoogleH5Validator](https://h5validator.appspot.com/dcm/asset),
+
 ## todo
 
 1. [] image compress handler

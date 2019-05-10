@@ -7,7 +7,7 @@
 
 import fs from 'fs-extra';
 import path from 'path';
-const archiver = require('archiver');
+
 const baseDir = path.resolve(__dirname, './dist');
 const buildConfig = {
     gameName: process.env.npm_package_config_gameName,

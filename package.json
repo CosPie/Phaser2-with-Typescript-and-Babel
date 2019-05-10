@@ -13,9 +13,11 @@
     "scripts": {
         "check-types": "tsc",
         "check-types:watch": "tsc --watch",
+        "check-h5validator": "ts-node GoogleValidator.ts",
         "dev": "webpack-dev-server --config webpack.dev.config.js",
-        "build": "webpack --mode production --config webpack.build.config.js --env.direction=$direction --env.androidURL=$androidURL --env.iosRL=$iosURL && npm run generate",
-        "generate": "ts-node build.ts",
+        "build": "webpack --mode production --config webpack.build.config.js --env.direction=$direction --env.androidURL=$androidURL --env.iosRL=$iosURL && npm run build:generate && npm run build:zip",
+        "build:generate": "ts-node build.ts",
+        "build:zip": "ts-node zip.ts",
         "lint": "eslint src/ --ext .js,.ts "
     },
     "keywords": [],
@@ -56,6 +58,7 @@
         "webpack-dev-server": "^3.1.14"
     },
     "dependencies": {
+        "@types/request": "^2.48.1",
         "core-js": "3",
         "cssnano": "^4.1.10",
         "expose-loader": "^0.7.5",
