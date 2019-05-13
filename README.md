@@ -9,17 +9,21 @@
 
 1. [x] 根据安卓\IOS 链接 打包成两份,文件名按指定格式
 
-2. [ ] image compress handler
+2. [ ] 使用 cross-env 解决Unix/Win下scripts变量的兼容问题
 
-3. [ ] media (such as _.mp3 , _.wav file) file-loader
+3. [ ] 根据文件名进行生成preload File.(序列帧需包含keyframe关键帧)
 
-4. [ ] Compress Css (postcss, purgecss for remove unused css)
+4. [ ] image compress handler
 
-5. [ ] add the font handler
+5. [ ] media (such as _.mp3 , _.wav file) file-loader
 
-6. [ ] dts gen tool
+6. [ ] Compress Css (postcss, purgecss for remove unused css)
+
+7. [ ] add the font handler
+
+8. [ ] dts gen tool
    
-7. [ ] 使用WebpackReplaceLoader插件取代相关正则替换方式
+9.  [x] 使用WebpackReplaceLoader插件取代相关正则替换方式
 
 
 

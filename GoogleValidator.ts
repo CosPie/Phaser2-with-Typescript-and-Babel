@@ -16,28 +16,89 @@ import fs from 'fs-extra';
 import path from 'path';
 import child_process from 'child_process';
 const inquirer = require('inquirer');
-interface DCMUploadRes {
+const chalk = require('chalk');
+const ora = require('ora');
+
+const log = console.log;
+const greenF = chalk.green;
+const redF = chalk.red;
+
+interface UploadRes {
+    status: boolean;
+    response: UploadResponse;
+}
+
+interface UploadResponse {
+    policy: string;
+    result: number;
+}
+interface UploadValidationResult {
     status: boolean;
     response: Response;
 }
 
 interface Response {
-    policy: string;
-    result: number;
+    policy: Policy;
+    result: Result;
+    batch_result_path: null;
 }
 
-const GoogleH5ValidatorURL = 'https://h5validator.appspot.com/dcm';
+interface Policy {
+    default_preview_expand: boolean;
+    name: string;
+    input_type: string;
+    allow_preview_popups: boolean;
+    supports_preview: boolean;
+    slug: string;
+}
+
+interface Result {
+    validation_case_results: ValidationCaseResult[];
+    date_run: string;
+    creative_bundle_filesize: number;
+    policy: string;
+    landing_pages_id: null;
+    creative_bundle_name: string;
+    id: number;
+    previews: Preview[];
+}
+
+interface Preview {
+    src: string;
+    width: number;
+    name: string;
+    height: number;
+}
+
+interface ValidationCaseResult {
+    status: Status;
+    name: string;
+    status_int: number;
+    error_messages: any[];
+    was_run: boolean;
+    error_template: string;
+    description: string;
+}
+
+enum Status {
+    Pass = 'PASS',
+}
+// 默认使用ADW上传
+const ADWUploadAPI = 'https://h5validator.appspot.com/api/policy/adwords';
 const DCMUploadAPI = 'https://h5validator.appspot.com/api/policy/dcm';
+
+const uploadADWResultURL = 'https://h5validator.appspot.com/adwords/asset?result=';
+const uploadDCMResultURL = 'https://h5validator.appspot.com/dcm/asset?result=';
 
 const getFormData = (uploadFileName: any) => {
     let uploadFileStream = fs.createReadStream(path.resolve(__dirname, `./build/${uploadFileName}`));
     let uploadFileSize = fs.statSync(path.resolve(__dirname, `./build/${uploadFileName}`)).size;
     if (uploadFileSize / 1024 >= 1024) {
-        console.warn(`${uploadFileName}文件超出1Mb,可能无法上传.`);
+        log(chalk.red(`${uploadFileName}文件超出1Mb,可能无法上传.`));
     }
     return {
         creative_bundle: uploadFileStream,
-        allow_large_file_size: 'false', // default false
+        allow_large_file_size: 'true', // default false
     };
 };
 
@@ -59,23 +120,50 @@ const uploadToGoogleValidator = async () => {
             choices: [...zipFiles],
         },
     ]);
+    if (answers.length == 0) {
+        log('No select file');
+        return;
+    }
+
     let uploadFormData = getFormData(answers.selectUploadFile);
 
-    request.post({ url: DCMUploadAPI, formData: uploadFormData }, (err, res, body) => {
+    const uploadSpinner = ora('Uploading...').start();
+    // log(chalk.green('Uploading...'));
+    request.post({ url: ADWUploadAPI, formData: uploadFormData }, (err, res, body) => {
         if (err) {
             throw new Error(err);
         }
         if (!body) {
             throw new Error('body is undefined');
         }
+        uploadSpinner.stop();
 
         // example body data:
         // )]}',
         // {"status": true, "response": {"policy": "dcm", "result": 6704950093807616}}
 
-        let data: DCMUploadRes = JSON.parse(body.slice(6));
+        let data: UploadRes = JSON.parse(body.slice(6));
         let resultID = data.response.result;
-        child_process.exec(`start https://h5validator.appspot.com/dcm/asset?result=${resultID}`);
+
+        // 直接在控制台显示是否通过的结果:
+        const resultSpinner = ora('Get validated result...').start();
+        request.get({ url: `${ADWUploadAPI}/result/${resultID}` }, (err, res, body) => {
+            let resultData: UploadValidationResult = JSON.parse(body.slice(6));
+            let validationCaseResults = resultData.response.result.validation_case_results;
+
+            let isAllPassed = validationCaseResults.every(rs => {
+                return rs.status === 'PASS';
+            });
+            resultSpinner.stop();
+
+            if (isAllPassed) {
+                log(greenF('All Passed.'));
+            } else {
+                log(redF('Exist Error.'));
+            }
+            log('see More Detail:' + `${uploadADWResultURL}${resultID}`);
+        });
+        child_process.exec(`start ${uploadADWResultURL}${resultID}`);
     });
 };
 export default uploadToGoogleValidator();

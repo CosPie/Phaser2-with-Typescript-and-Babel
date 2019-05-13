@@ -13,6 +13,9 @@ module.exports = ($env, argv) => {
             env.npm_package_config_direction === 'vertical'
                 ? JSON.stringify('width=320,height=480')
                 : JSON.stringify('width=480,height=320'),
+        GLOBALWIDTH: env.npm_package_config_direction === 'vertical' ? 320 : 480,
+        GLOBALHEIGHT: env.npm_package_config_direction === 'vertical' ? 480 : 320,
+        GLOBALDOWNLOADURL: env.npm_package_config_devURL,
     };
     return {
         mode: 'development',
@@ -52,13 +55,32 @@ module.exports = ($env, argv) => {
                     include: [path.resolve(__dirname, 'src/ts')],
                     use: ['babel-loader'],
                 },
+                {
+                    test: /\.(ts|js)x?$/,
+                    loader: 'webpack-replace-loader',
+                    options: {
+                        arr: [
+                            {
+                                search: 'GLOBALWIDTH',
+                                replace: buildEnvConfig.GLOBALWIDTH,
+                                attr: 'g',
+                            },
+                            {
+                                search: 'GLOBALHEIGHT',
+                                replace: buildEnvConfig.GLOBALHEIGHT,
+                                attr: 'g',
+                            },
+                            {
+                                search: 'GLOBALDOWNLOADURL',
+                                replace: buildEnvConfig.GLOBALDOWNLOADURL,
+                                attr: 'g',
+                            },
+                        ],
+                    },
+                },
             ],
         },
         plugins: [
-            new webpack.DefinePlugin({
-                GLOBALWIDTH: env.npm_package_config_direction === 'vertical' ? 320 : 480,
-                GLOBALHEIGHT: env.npm_package_config_direction === 'vertical' ? 480 : 320,
-            }),
             new HtmlWebpackPlugin({
                 filename: 'index.html', // 配置输出文件名和路径
                 template: './index.ejs', // 配置文件模板
