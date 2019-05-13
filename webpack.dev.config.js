@@ -7,7 +7,6 @@ const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 module.exports = ($env, argv) => {
     const env = process.env;
-    console.log(env);
     const buildEnvConfig = {
         // html metaTag data
         ADSIZE:
