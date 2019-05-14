@@ -1,5 +1,6 @@
 import '../scss/main.scss';
-import initPreload from './preload';
+import customPreload from './preload';
+import autoPreload from './auto_preload';
 import { gameConfig } from '../../typings/dto';
 
 class IGame {
@@ -28,12 +29,13 @@ class IGame {
         return this;
     }
     preload() {
-        initPreload(this.game);
+        autoPreload(this.game);
+        customPreload(this.game);
     }
     create() {
-        let logo = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo');
-        logo.scale.setTo(0.2, 0.2);
-        logo.anchor.setTo(0.5, 0.5);
+        let phaser2 = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'phaser2');
+        phaser2.scale.setTo(0.2, 0.2);
+        phaser2.anchor.setTo(0.5, 0.5);
     }
 }
 window.onload = () => {

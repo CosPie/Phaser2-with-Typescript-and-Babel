@@ -3,6 +3,7 @@
     "ADSIZE",
     "GLOBALDOWNLOADURL",
     "GLOBALHEIGHT",
-    "devtool"
+    "devtool",
+    "spritesheet"
   ]
 }
