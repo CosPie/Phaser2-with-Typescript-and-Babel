@@ -2,9 +2,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const phaserModulePath = path.join(__dirname, '/node_modules/phaser-ce/');
-const webpack = require('webpack');
-const CopyPlugin = require('copy-webpack-plugin');
 module.exports = ($env, argv) => {
     const env = process.env;
     const buildEnvConfig = {
