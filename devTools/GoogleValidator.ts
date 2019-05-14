@@ -91,8 +91,8 @@ const uploadADWResultURL = 'https://h5validator.appspot.com/adwords/asset?result
 const uploadDCMResultURL = 'https://h5validator.appspot.com/dcm/asset?result=';
 
 const getFormData = (uploadFileName: any) => {
-    let uploadFileStream = fs.createReadStream(path.resolve(__dirname, `./build/${uploadFileName}`));
-    let uploadFileSize = fs.statSync(path.resolve(__dirname, `./build/${uploadFileName}`)).size;
+    let uploadFileStream = fs.createReadStream(path.resolve(__dirname, `../build/${uploadFileName}`));
+    let uploadFileSize = fs.statSync(path.resolve(__dirname, `../build/${uploadFileName}`)).size;
     if (uploadFileSize / 1024 >= 1024) {
         log(chalk.red(`${uploadFileName}文件超出1Mb,可能无法上传.`));
     }
@@ -103,11 +103,11 @@ const getFormData = (uploadFileName: any) => {
 };
 
 const uploadToGoogleValidator = async () => {
-    if (!fs.existsSync(path.resolve(__dirname, './build'))) {
+    if (!fs.existsSync(path.resolve(__dirname, '../build'))) {
         throw new Error('build Folder is not exist, please execute npm run build');
     }
 
-    let buildDirArr = await fs.readdir(path.resolve(__dirname, './build'));
+    let buildDirArr = await fs.readdir(path.resolve(__dirname, '../build'));
     let zipFiles = buildDirArr.filter(dirName => {
         return dirName.indexOf('.zip') !== -1;
     });

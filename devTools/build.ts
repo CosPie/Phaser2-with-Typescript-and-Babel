@@ -7,19 +7,22 @@
 
 import fs from 'fs-extra';
 import path from 'path';
-import buildConfig from './build.config';
+import buildConfig from '../build.config';
 const packageConfig = buildConfig.packageConfig;
 
-const baseDir = path.resolve(__dirname, './dist');
+const baseDir = path.resolve(__dirname, '../dist');
 const commonBuildPath = `${packageConfig.gameName || '游戏名'}_${
     packageConfig.direction === 'vertical' ? '竖版' : '横版'
 }`;
 
-const buildAndroidDir = path.resolve(__dirname, `./build/${commonBuildPath}_安卓_${packageConfig.developer || '姓名'}`);
-const buildIOSDir = path.resolve(__dirname, `./build/${commonBuildPath}_IOS_${packageConfig.developer || '姓名'}`);
+const buildAndroidDir = path.resolve(
+    __dirname,
+    `../build/${commonBuildPath}_安卓_${packageConfig.developer || '姓名'}`,
+);
+const buildIOSDir = path.resolve(__dirname, `../build/${commonBuildPath}_IOS_${packageConfig.developer || '姓名'}`);
 
 const build = () => {
-    fs.emptyDirSync(path.resolve(__dirname, './build'));
+    fs.emptyDirSync(path.resolve(__dirname, '../build'));
     fs.ensureDirSync(buildAndroidDir);
     fs.ensureDirSync(buildIOSDir);
 

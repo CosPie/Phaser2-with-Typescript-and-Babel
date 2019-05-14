@@ -3,11 +3,11 @@ import path from 'path';
 const archiver = require('archiver');
 
 const zip = async () => {
-    const dirArr = await fs.readdir(path.resolve(__dirname, './build/'));
+    const dirArr = await fs.readdir(path.resolve(__dirname, '../build/'));
     dirArr.map(dir => {
-        fs.lstat(path.resolve(__dirname, './build/', dir)).then(stats => {
+        fs.lstat(path.resolve(__dirname, '../build/', dir)).then(stats => {
             if (stats.isDirectory()) {
-                archiveDir(path.resolve(__dirname, './build/', dir), dir);
+                archiveDir(path.resolve(__dirname, '../build/', dir), dir);
             }
         });
     });
@@ -15,7 +15,7 @@ const zip = async () => {
 
 const archiveDir = (src: string, outputFile: string) => {
     // generate Zip
-    const output = fs.createWriteStream(path.resolve(__dirname, `./build/${outputFile}.zip`));
+    const output = fs.createWriteStream(path.resolve(__dirname, `../build/${outputFile}.zip`));
     const archive = archiver('zip');
 
     output.on('close', function() {
