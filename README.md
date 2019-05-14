@@ -1,15 +1,15 @@
 # Phaser2-with-Typescript-and-Babel
 
 ## 功能
-1. Phaser2+Typescript+Babel /Scss+Postcss/Eslint+Prettier/
-2. 快速生成两套区分安卓/IOS游戏下载链接的项目文件夹,并生成`*.zip`打包文件
-3. 可自动上传到[GoogleH5Validator](https://h5validator.appspot.com/dcm/asset),并以默认浏览器显示结果页
+1. 快速生成两套区分安卓/IOS游戏下载链接的项目文件夹,并生成`*.zip`打包文件
+2. 支持根据图片资源,以驼峰规则自动生成preload文件
+3. 支持一步上传到[GoogleH5Validator](https://h5validator.appspot.com/adwords/asset)并显示结果
 
 ## Todo
 
 1. [x] 根据安卓\IOS 链接 打包成两份,文件名按指定格式
 
-2. [ ] 根据驼峰规则自动生成preload文件.
+2. [x] 根据驼峰规则自动生成preload文件.
 
 3. [ ] 使用 cross-env 解决Unix/Win下scripts变量的兼容问题
 
