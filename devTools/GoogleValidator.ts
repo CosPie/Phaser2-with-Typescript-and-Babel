@@ -1,5 +1,6 @@
 /**
- * 上传build文件夹中自然顺序第一个Zip文件到谷歌H5Validator中,并自动打开浏览器显示检查结果
+ * 选择build文件夹中的Zip文件到谷歌H5Validator中进行检查,
+ * 若检测到错误则自动打开浏览器显示检查结果.
  * @todo 添加inquire
  * @Before 请确保已经执行了build任务,存在打包的zip文件
  * @Note 确保命令行网络环境能够访问Google
@@ -111,6 +112,11 @@ const uploadToGoogleValidator = async () => {
     let zipFiles = buildDirArr.filter(dirName => {
         return dirName.indexOf('.zip') !== -1;
     });
+    if (zipFiles.length == 0) {
+        log(redF(`No Zip file In ${path.resolve(__dirname, '../build')}`));
+        log(chalk.yellow(`Please Try : npm run build`));
+        return;
+    }
 
     const answers = await inquirer.prompt([
         {
