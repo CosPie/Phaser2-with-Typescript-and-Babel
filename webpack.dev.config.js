@@ -99,11 +99,12 @@ module.exports = ($env, argv) => {
         },
         devtool: 'source-maps',
         devServer: {
-            // contentBase: path.join('/dist/'),
             stats: 'errors-only',
             inline: true,
-            host: '127.0.0.1',
-            port: 5050,
+            host: '0.0.0.0',
+            compress: true,
+            useLocalIp: true,
+            port: 4000,
         },
     };
 };
