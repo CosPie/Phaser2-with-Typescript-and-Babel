@@ -9,19 +9,21 @@
 
 1. [x] 根据安卓\IOS 链接 打包成两份,文件名按指定格式
 
-2. [ ] 使用 cross-env 解决Unix/Win下scripts变量的兼容问题
+2. [ ] 根据驼峰规则自动生成preload文件.
 
-3. [ ] 根据文件名进行生成preload File.(序列帧需包含keyframe关键帧)
+3. [ ] 使用 cross-env 解决Unix/Win下scripts变量的兼容问题
 
-4. [ ] image compress handler
+4. [ ] 根据文件名进行生成preload File.(序列帧需包含keyframe关键帧)
 
-5. [ ] media (such as _.mp3 , _.wav file) file-loader
+5. [ ] image compress handler
 
-6. [ ] add the font handler
+6. [ ] media (such as _.mp3 , _.wav file) file-loader
 
-7. [ ] dts gen tool
+7. [ ] add the font handler
+
+8. [ ] dts gen tool
    
-8.  [x] 使用WebpackReplaceLoader插件取代相关正则替换方式
+9.  [x] 使用WebpackReplaceLoader插件取代相关正则替换方式
 
 
 

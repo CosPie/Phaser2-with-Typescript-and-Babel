@@ -1,25 +1,22 @@
 /**
  * @before 需确保webpack已经编译出/dist目录文件
- * 根据package.json中的config 属性,
- * 进行生成包含安卓/IOS的文件夹以及Zip压缩包
+ * 根据package.json文件中的 config 属性,
+ * 进行生成包含安卓/IOS两套文件夹,以及Zip压缩包
  *
  */
 
 import fs from 'fs-extra';
 import path from 'path';
+import buildConfig from './build.config';
+const packageConfig = buildConfig.packageConfig;
 
 const baseDir = path.resolve(__dirname, './dist');
-const buildConfig = {
-    gameName: process.env.npm_package_config_gameName,
-    direction: process.env.npm_package_config_direction === 'vertical' ? '竖版' : '横版',
-    developer: process.env.npm_package_config_developer,
-    androidURL: process.env.npm_package_config_androidURL,
-    iosURL: process.env.npm_package_config_iosURL,
-};
-const commonBuildPath = `${buildConfig.gameName}_${buildConfig.direction}`;
+const commonBuildPath = `${packageConfig.gameName || '游戏名'}_${
+    packageConfig.direction === 'vertical' ? '竖版' : '横版'
+}`;
 
-const buildAndroidDir = path.resolve(__dirname, `./build/${commonBuildPath}_安卓_${buildConfig.developer}`);
-const buildIOSDir = path.resolve(__dirname, `./build/${commonBuildPath}_IOS_${buildConfig.developer}`);
+const buildAndroidDir = path.resolve(__dirname, `./build/${commonBuildPath}_安卓_${packageConfig.developer || '姓名'}`);
+const buildIOSDir = path.resolve(__dirname, `./build/${commonBuildPath}_IOS_${packageConfig.developer || '姓名'}`);
 
 const build = () => {
     fs.emptyDirSync(path.resolve(__dirname, './build'));
@@ -43,7 +40,7 @@ const build = () => {
             return console.log(err);
         }
         //
-        const result = data.replace(regExp_GLOBALDOWNLOADURL, buildConfig.androidURL);
+        const result = data.replace(regExp_GLOBALDOWNLOADURL, packageConfig.androidURL);
         await fs.ensureDir(path.resolve(buildAndroidDir, './js/'));
         fs.writeFile(path.resolve(buildAndroidDir, './js/index.js'), result, 'utf8', function(err) {
             if (err) {
@@ -59,7 +56,7 @@ const build = () => {
             return console.log(err);
         }
         //
-        const result = data.replace(regExp_GLOBALDOWNLOADURL, buildConfig.iosURL);
+        const result = data.replace(regExp_GLOBALDOWNLOADURL, packageConfig.iosURL);
         await fs.ensureDir(path.resolve(buildIOSDir, './js/'));
         fs.writeFile(path.resolve(buildIOSDir, './js/index.js'), result, 'utf8', function(err) {
             if (err) {
