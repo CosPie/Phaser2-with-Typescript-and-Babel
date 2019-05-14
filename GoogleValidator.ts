@@ -160,10 +160,11 @@ const uploadToGoogleValidator = async () => {
                 log(greenF('All Passed.'));
             } else {
                 log(redF('Exist Error.'));
+                // 存在错误时,自动打开详情页.
+                child_process.exec(`start ${uploadADWResultURL}${resultID}`);
             }
-            log('see More Detail:' + `${uploadADWResultURL}${resultID}`);
+            log('See more detail:' + `${uploadADWResultURL}${resultID}`);
         });
-        child_process.exec(`start ${uploadADWResultURL}${resultID}`);
     });
 };
 export default uploadToGoogleValidator();
