@@ -17,13 +17,11 @@
 
 5. [ ] media (such as _.mp3 , _.wav file) file-loader
 
-6. [ ] Compress Css (postcss, purgecss for remove unused css)
+6. [ ] add the font handler
 
-7. [ ] add the font handler
-
-8. [ ] dts gen tool
+7. [ ] dts gen tool
    
-9.  [x] 使用WebpackReplaceLoader插件取代相关正则替换方式
+8.  [x] 使用WebpackReplaceLoader插件取代相关正则替换方式
 
 
 
@@ -63,8 +61,37 @@ npm run dev
         "iosURL": "http://www.ios.com"
     },
 ```
+配置后的链接将会通过正则对代码中的关键字进行替换。
+以下列出使用到的`全局关键字`:
+
+* `GLOBALDOWNLOADURL`: 游戏下载链接.生产环境下会自动填充安卓/IOS链接,开发环境则会填充package.json中的 config.devURL 内容.
+
+* `GLOBALWIDTH`和`GLOBALHEIGHT`: 游戏的宽高.由 package.json 中的config.direction决定, 默认当且仅当direction为 `'verticatl'`时,宽高为竖版:320x480。direction填如`'horizental'`或其他任意值时,宽高均为横版:480x320。
+
+示例:
+
+`index.ts`:
+```typescript
+IGame.gameConfig = {
+    width: 'GLOBALWIDTH',
+    height: 'GLOBALHEIGHT',
+};
+```
+替换后:
+```typescript
+IGame.gameConfig={
+    width:'320',
+    height:'480'
+}
+// 如果需要Number类型,请进行转换
+// Number(IGame.gameConfig.width)
+```
+
+
 
 ## 命令使用
+
+为了避免script长名称的记忆,以及在TERMINAL中的冗长输入 , 推荐VSCODE TASK RUNNER扩展,或者直接使用VSCODE中的`运行任务`快捷键配合使用.
 
 常用:
 
@@ -86,33 +113,38 @@ npm run dev
 
 
 ## DTO.d.ts
+本文件存放数据传输对象(Data Transfer Object).
 
-1. Install QuickType VSCODE ext
-2. create the dto `[name].json` file.
-3. open it and use QuickType to generate interface content.
-4. copy/paste to the dto.d.ts
+为JSON格式的数据快速生成接口的工具使用方法如下:
+1. 安装 QuickType VSCODE 扩展
+2. 创建数据的 `[name].json` file并打开.
+3. `Ctrl+P` 输入 `Open QuickType for Typescript`.
+4. 复制生成接口数据内容到 dto.d.ts中
 
 ## Typescript
 
-1. Use babel-loader to transform `*.ts` file to `*.js` with no type-check , and then it can improved performance.
+1. 使用babel-loader 进行 `*.ts` 无安全类型检查的编译 , 提高编译速度,避免在快速开发时Ts的类型纠错提醒。
+2. 如果有类型检查需要时，再运行 `npm run check-types`
 
-> see more detail:[TypeScript With Babel: A Beautiful Marriage - I Am Turns](https://iamturns.com/typescript-babel/)
-
-2. if you want to use the type-check , `npm run check-types`
+> See more detail:[TypeScript With Babel: A Beautiful Marriage - I Am Turns](https://iamturns.com/typescript-babel/)
 
 ## Use Scss
 
-use Scss css-pre-processing , you can replace it according to the dev Env. (such as less).
+Phaser小游戏几乎不需要用到CSS,但为了后续可能的需要,这里默认提供了SCSS.
 
 ## Code Format
 
-use prettier and eslint to format `*.ts` file to replace tslint.
+Prettier + Eslint 进行格式化 `*.ts` 文件.
+2019年Ts官方已经不建议使用Tslint,而是使用Eslint进行代码格式化.
+> See more detail: [TSLint in 2019 – Palantir Blog – Medium](https://medium.com/palantir/tslint-in-2019-1a144c2317a9)
 
-## Note
+## 注意点
+
+Ts+Babel 的组合并不支持以下四种用法:
 
 1. Namespaces.
 
-Solution: don’t use them! They’re outdated. Use the industry standard ES6 modules (import / export) instead. The recommended tslint rules ensure namespaces are not used.
+    Solution: don’t use them! They’re outdated. Use the industry standard ES6 modules (import / export) instead. The recommended tslint rules ensure namespaces are not used.
 
 2. Casting a type with the`<newtype>x`syntax.
 
