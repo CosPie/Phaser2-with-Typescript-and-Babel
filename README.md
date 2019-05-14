@@ -97,7 +97,7 @@ IGame.gameConfig={
 
 常用:
 
-`npm run dev`: 开发环境
+`npm run dev`: 开发环境,自动生成资源后进入webpack-dev-server:watch模式。
 
 `npm run build`: 将会得到两套生产环境项目文件夹和Zip压缩包,等同于:执行完webpack任务后+`npm run build:generate && npm run build:zip`;
 
