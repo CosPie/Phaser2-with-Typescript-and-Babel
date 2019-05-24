@@ -16,7 +16,7 @@
         "check-types:watch": "tsc --watch",
         "check-h5validator": "ts-node ./devTools/GoogleValidator.ts",
         "check-h5validator:proxy": "SET http_proxy=http://127.0.0.1:1080 && SET https_proxy=http://127.0.0.1:1080 && ts-node ./devTools/GoogleValidator.ts",
-        "dev": "npm run autoPreload && webpack-dev-server --config webpack.dev.config.js",
+        "dev": "webpack-dev-server --config webpack.dev.config.js",
         "autoPreload": "ts-node ./devTools/GeneratePreload.ts",
         "build": "webpack --mode production --config webpack.build.config.js && npm run build:generate && npm run build:zip",
         "build:generate": "ts-node ./devTools/build.ts",
