@@ -2,6 +2,8 @@ import '../scss/main.scss';
 import customPreload from './preload';
 import autoPreload from './auto_preload';
 import { gameConfig } from '../../typings/dto';
+import Stock from './mobx/index';
+import { autorun } from 'mobx';
 
 class IGame {
     private game: Phaser.Game;
@@ -44,4 +46,14 @@ window.onload = () => {
     // dev Env: replace with devURL
     // production Env: auto replace with android/IOS URL.
     console.log('GLOBALDOWNLOADURL');
+
+    const stock700 = new Stock();
+    window.stock700 = stock700;
+    // stock700.price = 420;
+
+    autorun(function() {
+        console.log('change num:', stock700.num);
+        // console.log('change price:', stock700.price);
+    });
+    stock700.buyIn(300);
 };

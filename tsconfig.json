@@ -17,6 +17,7 @@
         // Import non-ES modules as default imports.
         "esModuleInterop": true,
 
+        "experimentalDecorators":true
     },
     "include": [
         "src",

@@ -16,7 +16,15 @@ module.exports = {
         "@babel/typescript"
     ],
     "plugins": [
-        "@babel/proposal-class-properties",
-        "@babel/proposal-object-rest-spread"
+        //  make sure that @babel/plugin-proposal-decorators comes before @babel/plugin-proposal-class-properties
+        ["@babel/plugin-proposal-decorators", {
+            "legacy": true
+        }],
+        ["@babel/plugin-proposal-class-properties", {
+            "loose": true
+        }],
+        // "@babel/plugin-proposal-decorators",
+        // "@babel/proposal-class-properties",
+        "@babel/proposal-object-rest-spread",
     ]
 }

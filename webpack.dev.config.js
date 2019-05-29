@@ -57,6 +57,6 @@ module.exports = merge(common, {
         host: '0.0.0.0',
         compress: true,
         useLocalIp: true,
-        port: 4000,
+        port: 4002,
     },
 });
