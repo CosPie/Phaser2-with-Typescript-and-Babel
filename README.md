@@ -55,17 +55,13 @@ npm run dev
 // i ｢wdm｣: Compiled successfully.
 ```
 
+3.5.1 (可选方案一), 如果你想在开发时,严格受到Typescript的类型检查约束下开发,以确保良好的代码健壮性,可以运行 `npm run check-types:watch` (其实我只觉得它很烦,一般我选下面的方案)
+
+3.5.2 (可选方案二), 如果你开发完成后,希望对代码进行类型和质量检查,以增加代码健壮性, 请执行 `npm run check-types` 查看项目中可能存在的类型错误.
+
 4. 开发完成后, 执行 npm run build ,将会出现webpack信息和压缩后zip包的大小信息.如果大小超出1MB,会给出提示,但不会中断操作或报错.
 ```
 ...........................................................
-    [2] (webpack)/buildin/global.js 472 bytes {0} [built]
-    [3] (webpack)/buildin/module.js 497 bytes {0} [built]
-        + 1 hidden module
-Child html-webpack-plugin for "index-ios.html":
-     1 asset
-    Entrypoint undefined = index-ios.html
-    [0] ./node_modules/html-webpack-plugin/lib/loader.js!./index.ejs 742 bytes {0} [built]
-    [2] (webpack)/buildin/global.js 472 bytes {0} [built]
     [3] (webpack)/buildin/module.js 497 bytes {0} [built]
         + 1 hidden module
 
