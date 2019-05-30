@@ -47,6 +47,57 @@ yarn install
 
 ```shell
 npm run dev
+
+// output
+// i ｢wds｣: Project is running at http://172.16.30.206:4000/
+// i ｢wds｣: webpack output is served from /
+// i ｢wdm｣:
+// i ｢wdm｣: Compiled successfully.
+```
+
+4. 开发完成后, 执行 npm run build ,将会出现webpack信息和压缩后zip包的大小信息.如果大小超出1MB,会给出提示,但不会中断操作或报错.
+```
+...........................................................
+    [2] (webpack)/buildin/global.js 472 bytes {0} [built]
+    [3] (webpack)/buildin/module.js 497 bytes {0} [built]
+        + 1 hidden module
+Child html-webpack-plugin for "index-ios.html":
+     1 asset
+    Entrypoint undefined = index-ios.html
+    [0] ./node_modules/html-webpack-plugin/lib/loader.js!./index.ejs 742 bytes {0} [built]
+    [2] (webpack)/buildin/global.js 472 bytes {0} [built]
+    [3] (webpack)/buildin/module.js 497 bytes {0} [built]
+        + 1 hidden module
+
+> phaser2-with-typscript-and-babel@1.0.0 build:generate e:\Code\phaserProject\Phaser2-with-Typescript-and-Babel
+> ts-node ./devTools/build.ts
+
+
+> phaser2-with-typscript-and-babel@1.0.0 build:zip e:\Code\phaserProject\Phaser2-with-Typescript-and-Babel
+> ts-node ./devTools/zip.ts
+
+游戏名_竖版_IOS_姓名:300kb
+游戏名_竖版_安卓_姓名:300kb
+
+Terminal will be reused by tasks, press any key to close it.
+```
+
+5. 上传Google Assets Validator 检查是否有错误, 执行: `npm run check-h5validator:proxy` 命令:
+```
+> Executing task: npm run check-h5validator:proxy <
+
+? Select a *.zip file to upload:  (Use arrow keys)
+> 游戏名_竖版_IOS_姓名.zip
+  游戏名_竖版_安卓_姓名.zip
+
+// 选择任意一个然后按确定进行上传
+```
+
+6. 查看上传结果.检测全通过则显示All Pass信息和详细审核地址. 如果有错误将自动使用默认浏览器打开.
+```
+? Select a *.zip file to upload:  游戏名_竖版_IOS_姓名.zip
+All Passed.
+See more detail:https://h5validator.appspot.com/adwords/asset?result=5474306617507840
 ```
 
 ## 配置
@@ -80,6 +131,10 @@ IGame.gameConfig = {
     width: 'GLOBALWIDTH',
     height: 'GLOBALHEIGHT',
 };
+
+this.game.input.onTap.add(()=>{
+    window.location.href='GLOBALDOWNLOADURL';
+})
 ```
 
 替换后:
@@ -89,6 +144,21 @@ IGame.gameConfig = {
     width: '320',
     height: '480',
 };
+
+// dev
+this.game.input.onTap.add(()=>{
+    window.location.href='http://www.baidu.com';
+})
+
+// 安卓
+this.game.input.onTap.add(()=>{
+    window.location.href='http://www.android.com';
+})
+// IOS
+this.game.input.onTap.add(()=>{
+    window.location.href='http://www.ios.com';
+})
+
 // 如果需要Number类型,请进行转换
 // Number(IGame.gameConfig.width)
 // or parseInt(IGame.gameConfig.width,10)
@@ -115,6 +185,8 @@ IGame.gameConfig = {
 `npm run check-types` : 调用 Typescript 对代码进行类型检查
 
 `npm run check-h5validator` : 选择文件上传到 GoogleH5Validator,并以默认浏览器打开
+
+
 
 ## DTO.d.ts
 
