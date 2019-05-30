@@ -12,19 +12,19 @@
 
 2. [x] 根据驼峰规则自动生成 preload 文件.
 
-3. [ ] 使用 cross-env 解决 Unix/Win 下 scripts 变量的兼容问题
+3. [x] 根据文件名进行生成 preload File.(序列帧需包含 keyframe 关键帧)
 
-4. [ ] 根据文件名进行生成 preload File.(序列帧需包含 keyframe 关键帧)
+4. [x] 使用 WebpackReplaceLoader 插件取代相关正则替换方式
 
 5. [ ] image compress handler
 
-6. [ ] media (such as _.mp3 , _.wav file) file-loader
+6. [ ] font handler (小游戏大小限制在1M内,一般没有字体,如果有再加)
 
-7. [ ] add the font handler
+7. [ ] 使用 cross-env 解决 Unix/Win 下 scripts 变量的兼容问题
 
-8. [ ] dts gen tool
+8. [ ] media (such as _.mp3 , _.wav file) file-loader
 
-9. [x] 使用 WebpackReplaceLoader 插件取代相关正则替换方式
+
 
 ## Quick Start
 
@@ -91,6 +91,7 @@ IGame.gameConfig = {
 };
 // 如果需要Number类型,请进行转换
 // Number(IGame.gameConfig.width)
+// or parseInt(IGame.gameConfig.width,10)
 ```
 
 ## 命令使用
@@ -135,7 +136,7 @@ IGame.gameConfig = {
 
 ## Use Scss
 
-Phaser 小游戏几乎不需要用到 CSS,但为了后续可能的需要,这里默认提供了 SCSS.
+Phaser 小游戏几乎不需要用到 CSS,但为了后续可能的需要,这里默认提供了 SCSS. 但涉及到 node-sass ,会使脚手架安装速度变慢很多 ,考虑以后移除SCSS支持.
 
 ## Code Format
 
