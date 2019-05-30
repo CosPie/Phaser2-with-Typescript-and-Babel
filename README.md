@@ -55,22 +55,22 @@ npm run dev
 // i ｢wdm｣: Compiled successfully.
 ```
 
-3.5.1 (可选方案一), 如果你想在开发时,严格受到Typescript的类型检查约束下开发,以确保良好的代码健壮性,可以运行 `npm run check-types:watch` (其实我只觉得它很烦,一般我选下面的方案)
+(可选方案一),如果你想在开发时,严格受到Typescript的类型检查约束下开发,以确保良好的代码健壮性,可以运行 `npm run check-types:watch` (其实我只觉得它很烦,一般我选下面的方案)
 
-3.5.2 (可选方案二), 如果你开发完成后,希望对代码进行类型和质量检查,以增加代码健壮性, 请执行 `npm run check-types` 查看项目中可能存在的类型错误.
 
-4. 开发完成后, 执行 npm run build ,将会出现webpack信息和压缩后zip包的大小信息.如果大小超出1MB,会给出提示,但不会中断操作或报错.
-```
+(可选方案二),如果你开发完成后,希望对代码进行类型和质量检查,以增加代码健壮性, 请执行 `npm run check-types` 查看项目中可能存在的类型错误.
+
+4. 开发完成后, 执行 `npm run build` ,将会出现webpack信息和压缩后zip包的大小信息.如果大小超出1MB,会给出提示,但不会中断操作或报错.
+```shell
 ...........................................................
     [3] (webpack)/buildin/module.js 497 bytes {0} [built]
         + 1 hidden module
 
-> phaser2-with-typscript-and-babel@1.0.0 build:generate e:\Code\phaserProject\Phaser2-with-Typescript-and-Babel
-> ts-node ./devTools/build.ts
+phaser2-with-typscript-and-babel@1.0.0 build:generate  
+ts-node ./devTools/build.ts
 
-
-> phaser2-with-typscript-and-babel@1.0.0 build:zip e:\Code\phaserProject\Phaser2-with-Typescript-and-Babel
-> ts-node ./devTools/zip.ts
+phaser2-with-typscript-and-babel@1.0.0 build:zip  
+ts-node ./devTools/zip.ts
 
 游戏名_竖版_IOS_姓名:300kb
 游戏名_竖版_安卓_姓名:300kb
@@ -79,8 +79,9 @@ Terminal will be reused by tasks, press any key to close it.
 ```
 
 5. 上传Google Assets Validator 检查是否有错误, 执行: `npm run check-h5validator:proxy` 命令:
-```
-> Executing task: npm run check-h5validator:proxy <
+
+```shell
+ Executing task: npm run check-h5validator:proxy 
 
 ? Select a *.zip file to upload:  (Use arrow keys)
 > 游戏名_竖版_IOS_姓名.zip
@@ -89,8 +90,8 @@ Terminal will be reused by tasks, press any key to close it.
 // 选择任意一个然后按确定进行上传
 ```
 
-6. 查看上传结果.检测全通过则显示All Pass信息和详细审核地址. 如果有错误将自动使用默认浏览器打开.
-```
+1. 查看上传结果.检测全通过则显示All Pass信息和详细审核地址. 如果有错误将自动使用默认浏览器打开.
+```shell
 ? Select a *.zip file to upload:  游戏名_竖版_IOS_姓名.zip
 All Passed.
 See more detail:https://h5validator.appspot.com/adwords/asset?result=5474306617507840
