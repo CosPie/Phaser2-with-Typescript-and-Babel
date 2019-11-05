@@ -18,9 +18,9 @@
         "check-h5validator:proxy": "SET http_proxy=http://127.0.0.1:1080 && SET https_proxy=http://127.0.0.1:1080 && ts-node ./devTools/GoogleValidator.ts",
         "dev": "webpack-dev-server --config webpack.dev.config.js",
         "autoPreload": "ts-node ./devTools/GeneratePreload.ts",
-        "build": "webpack --mode production --config webpack.build.config.js && npm run build:generate && npm run build:zip",
-        "build:generate": "ts-node ./devTools/build.ts",
-        "build:zip": "ts-node ./devTools/zip.ts",
+        "build": "webpack --mode production --config webpack.build.config.js && npm run generate && npm run zip",
+        "generate": "ts-node ./devTools/build.ts",
+        "zip": "ts-node ./devTools/zip.ts",
         "lint": "eslint src/ --ext .js,.ts "
     },
     "keywords": [],
